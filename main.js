@@ -7,7 +7,6 @@ const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-const envelopeTextures = [];
 const envelopeMeshes = [];
 const loader = new THREE.TextureLoader();
 
@@ -16,7 +15,7 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 1); // White light with fu
 scene.add(ambientLight);
 
 // Adjusted aspect ratio for envelope images
-const envelopeWidth = 1.5; // Adjusted width
+const envelopeWidth = 2; // Adjusted width
 const envelopeHeight = (130 / 213) * envelopeWidth; // Maintain aspect ratio
 
 // Ensure textures are loaded before rendering
@@ -41,20 +40,17 @@ for (let i = 1; i <= 8; i++) {
   );
 }
 
-const ovalRadiusX = 5;
-const ovalRadiusZ = 3;
+const ovalRadiusX = 4;
+const ovalRadiusZ = 2.5;
 
-camera.position.z = 7;
+camera.position.z = 5;
 
 function animate() {
   const time = Date.now() * 0.001; // Time in seconds
 
   envelopeMeshes.forEach((mesh, index) => {
     const angle = (index / envelopeMeshes.length) * Math.PI * 2 + time * 0.3; // Adjust speed with time
-    mesh.position.set(Math.cos(angle) * ovalRadiusX, 0, Math.sin(angle) * ovalRadiusZ);
-
-    // Keep envelopes angled toward the camera
-    mesh.lookAt(camera.position.x, camera.position.y, camera.position.z);
+    mesh.position.set(-Math.cos(angle) * ovalRadiusX, Math.sin(angle) * ovalRadiusZ, 0);
   });
 
   renderer.render(scene, camera);
