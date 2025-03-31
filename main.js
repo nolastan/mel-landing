@@ -5,7 +5,21 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 
 const renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor (0xeff6ff, 1);
 document.body.appendChild( renderer.domElement );
+
+// Add h1 text to the center of the page
+const h1 = document.createElement('h1');
+h1.textContent = 'Unsubscribe from postal mail';
+h1.style.position = 'absolute';
+h1.style.top = '50%';
+h1.style.left = '50%';
+h1.style.transform = 'translate(-50%, -50%)';
+h1.style.color = 'slate';
+h1.style.fontFamily = 'Arial, sans-serif';
+h1.style.fontSize = '2rem';
+h1.style.textAlign = 'center';
+document.body.appendChild(h1);
 
 const envelopeMeshes = [];
 const loader = new THREE.TextureLoader();
@@ -49,7 +63,7 @@ function animate() {
   const time = Date.now() * 0.001; // Time in seconds
 
   envelopeMeshes.forEach((mesh, index) => {
-    const angle = (index / envelopeMeshes.length) * Math.PI * 2 + time * 0.3; // Adjust speed with time
+    const angle = (index / envelopeMeshes.length) * Math.PI * 2 + time * 0.175; // Adjust speed with time
     mesh.position.set(-Math.cos(angle) * ovalRadiusX, Math.sin(angle) * ovalRadiusZ, 0);
   });
 
